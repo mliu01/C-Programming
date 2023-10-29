@@ -95,7 +95,33 @@ Zeichne ein Rechteck der Breite `width` und der Höhe `height` mit einem Schachb
 
 Löse die Aufgabe ohne Schleifen zu verwenden.
 */
+
+Canvas draw_row(Canvas c, int x, int y, int width) {
+    if (width > 0 && x < canvas_width(c)) {
+        c = canvas_set_black(c, x, y);
+        return draw_row(c, x+2, y, width-2); // only draw every other tile
+    } 
+    return c;
+}
+
+Canvas pattern(Canvas c, int x, int y, int endx, int endy, int width) {
+
+    if (x<endx && y<endy) {
+        c = draw_row(c, x, y, width); //odd row
+        if (x+1 < endx && y+1 < endy) {
+            c = draw_row(c, x+1, y+1, width-1); //even row
+        }
+        return pattern(c, x, y+2, endx, endy, width);
+    }
+    return c;
+}
+
 Canvas chessboard_rectangle(Canvas c, int x, int y, int width, int height) {
+    int x_end = x+width;
+    int y_end = y+height;
+
+    c = pattern(c, x, y, x_end, y_end, width);
+    
     return c;
 }
 
