@@ -149,6 +149,22 @@ Berechne die Anzahl der kniffligen Zahlen mit genau `n` Dezimalziffern.
 
 Beispiel: die kniffligen Zahlen mit drei Dezimalziffern sind 444, 447, 474, 744, 747.
 */
+int counting(int n, int last_digit) {
+    int count = 0;
+    
+    if (n == 0) {
+        return 1; 
+    }
+
+    for (int i = 4; i <= 7; i += 3) {
+        if (i == 7 && last_digit == 7) {
+            continue; // Überspringt zwei 7 hintereinander
+        }
+        count += counting(n - 1, i);
+    }
+    return count;
+}
+
 int tricky_numbers(int n) {
-    return 0;
+    return counting(n, 0);
 }
