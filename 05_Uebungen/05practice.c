@@ -135,7 +135,10 @@ Der Binomialkoeffizient von `n` und `k` ("n über k"), mit `0 <= k <= n` ist wie
 Berechne `bin(n, k)`.
 */
 int binomial_coefficient(int n, int k) {
-    return 0;
+    if (k==0 || k==n) {
+        return 1;
+    }
+    return binomial_coefficient(n-1, k-1) + binomial_coefficient(n-1, k);
 }
 
 /*
