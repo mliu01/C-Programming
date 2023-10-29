@@ -56,7 +56,7 @@ Canvas print_row(Canvas c, int start_x, int start_y, int width) {
 Canvas print_pyramid(Canvas c, int x, int y, int width) {
     // solange (x,y) nicht größer ist als die Canvas-Größe, wird von unten nach oben eine schwarze Reihe gesetzt.
     // Funktion wird rekursiv wieder aufgerufen, mit jeder Reihe verringert sich die Breite um 1 und x startet eins weiter
-    
+
     if (x < canvas_width(c) && y < canvas_height(c)) {
         c = print_row(c, x, y, width);
         print_pyramid(c, x+1, y+1, width-1);
@@ -69,8 +69,6 @@ Canvas pyramid(Canvas c) {
     return c;
 }
 
-
-
 /*
 Die Fibonaccizahlen sind wie folgt definiert:
 
@@ -80,8 +78,16 @@ Die Fibonaccizahlen sind wie folgt definiert:
 
 Berechne die `n`-te Fibonaccizahl.
 */
+
 int fibonacci(int n) {
-    return 0;
+    if (n<0) {
+        return 0;
+    }
+    if (n<=1) {
+        return 1;
+    }
+    return (fibonacci(n-2) + fibonacci(n-1));
+    
 }
 
 /*
