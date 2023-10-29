@@ -42,9 +42,34 @@ Zeichne eine Pyramide: die unterste Zeile ist komplett schwarz, die zweitunterst
 
 Löse die Aufgabe ohne Schleifen zu verwenden.
 */
-Canvas pyramid(Canvas c) {
+Canvas print_row(Canvas c, int start_x, int start_y, int width) {
+    // rekusriv wird ein schwarzer Punkt gesetzt um eine Reihe zu formen vom Punkt (start_x, start_y)
+    // nur start_x wird dabei erhöht (Linie horizontal entlang x-Achse)
+
+    if (start_x < width) {
+        c = canvas_set_black(c, start_x, start_y);
+        print_row(c, start_x+1, start_y, width);
+    }
+    return c;
+    
+}
+Canvas print_pyramid(Canvas c, int x, int y, int width) {
+    // solange (x,y) nicht größer ist als die Canvas-Größe, wird von unten nach oben eine schwarze Reihe gesetzt.
+    // Funktion wird rekursiv wieder aufgerufen, mit jeder Reihe verringert sich die Breite um 1 und x startet eins weiter
+    
+    if (x < canvas_width(c) && y < canvas_height(c)) {
+        c = print_row(c, x, y, width);
+        print_pyramid(c, x+1, y+1, width-1);
+    }
     return c;
 }
+
+Canvas pyramid(Canvas c) {
+    c = print_pyramid(c, 0, 0, canvas_width(c));
+    return c;
+}
+
+
 
 /*
 Die Fibonaccizahlen sind wie folgt definiert:
