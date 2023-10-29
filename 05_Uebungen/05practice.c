@@ -31,7 +31,10 @@ Wie viele Dezimalstellen hat `n` (`n` ist nicht negativ)?
 Löse die Aufgabe ohne Schleifen zu verwenden.
 */
 int count_digits(int n) {
-    return 0;
+    if (n/10 != 0) {
+        return 1 + count_digits(n/10);
+    } 
+    return 1;
 }
 
 /*
