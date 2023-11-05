@@ -95,9 +95,34 @@ Diese Funktion soll den Sierpinski Carpet der Ordnung `n` auf die Canvas zeichne
 
 _Benutzen Sie keine Schleifen, die Aufgabe soll über Rekursion gelöst werden!_
 */
-Canvas sierpinski_carpet(Canvas c, int n, int x, int y){
+
+Canvas draw(Canvas c, int n, int x, int y, int size, int sector) {
+    if (n == 0) {
+        return canvas_set_black(c, x, y);
+    }
+
+    if (sector > 0) { // acht "Koordinaten" für jeden Pixel
+        c = draw(c, n-1, x, y, sector, sector/3);                           // Pixel/Bereich unten links
+        c = draw(c, n-1, x + sector, y, sector, sector/3);                  // unten mitte
+        c = draw(c, n-1, x + sector*2, y, sector, sector/3);                // unten rechts
+        c = draw(c, n-1, x, y + sector, sector, sector/3);                  // mitte links
+        c = draw(c, n-1, x + sector*2, y + sector, sector, sector/3);       // mitte rechts
+        c = draw(c, n-1, x, y + sector*2, sector, sector/3);                // oben links
+        c = draw(c, n-1, x + sector, y + sector*2, sector, sector/3);       // oben mitte
+        c = draw(c, n-1, x + sector*2, y + sector*2, sector, sector/3);     // oben rechts
+    }
+    
     return c;
 }
+
+Canvas sierpinski_carpet(Canvas c, int n, int x, int y) {
+    int size = power(3, n);
+    int sector = size/3;
+
+    return draw(c, n, x, y, size, sector);
+}
+
+
 
 /*
 Aufgabe 3:
