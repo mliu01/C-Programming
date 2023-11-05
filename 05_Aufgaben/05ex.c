@@ -123,7 +123,6 @@ Canvas sierpinski_carpet(Canvas c, int n, int x, int y) {
 }
 
 
-
 /*
 Aufgabe 3:
 Implementieren Sie einen Fülleimer. Gegeben eine Koordinate `(x, y)` auf einer (bereits bemalten) Canvas, soll die komplette
@@ -134,5 +133,17 @@ zu vier direkte Nachbarn - die Diagonalen zählen nicht.
 Funktionen, um die Farbe eines Pixels auf der Canvas zu bestimmen, sind im Headerfile der Canvas dokumentiert.
 */
 Canvas bucket_fill(Canvas c, int x, int y) {
+    if (x < 0 || y < 0 || x >= canvas_width(c) || y >= canvas_height(c) || pixel_is_black(c, x, y)) {
+        // Koordinate befindet sich nicht im Canvas oder Pixel (x,y) ist bereits schwarz
+        return c; 
+    }
+
+    c = canvas_set_black(c, x, y);
+
+    c = bucket_fill(c, x + 1, y); // rechts
+    c = bucket_fill(c, x - 1, y); // links
+    c = bucket_fill(c, x, y + 1); // oberhalb
+    c = bucket_fill(c, x, y - 1); // unterhalb
+
     return c;
 }
