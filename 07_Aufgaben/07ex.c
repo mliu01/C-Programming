@@ -194,6 +194,7 @@ Blaukomponente der Farbe auf die `y` zeigt.
 Lassen Sie den Wert auf den `y` zeigt dabei unverändert.
 */
 void set_through_pointer_field3(RGB *x, RGB *y) {
+    (*x).b = (*y).b;
     return;
 }
 
@@ -203,6 +204,9 @@ Aufgabe 3e:
 und den Wert der Blaukomponente der Farbe, auf die `y` zeigt.
 */
 void swap_field(RGB *x, RGB *y) {
+    float tmp = (*x).b;
+    (*x).b = (*y).b;
+    (*y).b = tmp;
     return;
 }
 
@@ -212,6 +216,7 @@ Aufgabe 3f:
 Blaukomponente zeigen (d.h. die Folgen von Einsen und Nullen an den beiden Speicherpositionen sind identisch).
 */
 bool point_to_equal_values_field(RGB *x, RGB *y) {
+    if ((*x).b == (*y).b) return true;
     return false;
 }
 
@@ -221,6 +226,7 @@ Aufgabe 3g:
 Blaukomponente zeigen (d.h. die Speicherpositionen sind identisch).
 */
 bool point_to_same_values_field(RGB *x, RGB *y) {
+    if (&((*x).b) == &((*y).b)) return true; // mit * dereferenzieren und Blauwert herauskriegen, mit & dann die Speicherposition herausfinden
     return false;
 }
 
