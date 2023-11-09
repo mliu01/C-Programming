@@ -17,7 +17,8 @@ Aufgabe 1a:
 `x` zeigt auf einen 32-bit Integer. Geben Sie diesen Integer zurück.
 */
 int32_t retrieve_from_pointer(int32_t *x) {
-    return 0;
+
+    return *x; // * dereferenziert
 }
 
 /*
@@ -25,6 +26,7 @@ Aufgabe 1b:
 `x` zeigt auf einen 32-bit Integer. Setzen Sie diesen Integer auf 42.
 */
 void set_through_pointer1(int32_t *x) {
+    *x = 42;
     return;
 }
 
@@ -34,6 +36,7 @@ Aufgabe 1c:
 Wert von `y`.
 */
 void set_through_pointer2(int32_t *x, int32_t y) {
+    *x = y;
     return;
 }
 
@@ -43,6 +46,7 @@ Aufgabe 1d:
 Lassen Sie den Wert auf den `y` zeigt dabei unverändert.
 */
 void set_through_pointer3(int32_t *x, int32_t *y) {
+    *x = *y;
     return;
 }
 
@@ -51,6 +55,10 @@ Aufgabe 1e:
 `x` und `y` zeigen beide auf 32-bit Integer. Vertauschen Sie den Wert auf den `x` zeigt und den Wert auf den `y` zeigt.
 */
 void swap(int32_t *x, int32_t *y) {
+    int tmp = *x;
+    *x = *y;
+    *y = tmp;
+
     return;
 }
 
@@ -60,6 +68,7 @@ Aufgabe 1f:
 Wert zeigen (d.h. die Folgen von Einsen und Nullen an den beiden Speicherpositionen sind identisch).
 */
 bool point_to_equal_values(int32_t *x, int32_t *y) {
+    if (*x == *y) return true; // Wert
     return false;
 }
 
@@ -69,6 +78,7 @@ Aufgabe 1g:
 Wert zeigen (d.h. die Speicherpositionen sind identisch).
 */
 bool point_to_same_values(int32_t *x, int32_t *y) {
+    if (x == y) return true; // position
     return false;
 }
 
