@@ -68,6 +68,19 @@ Schreiben Sie die Funktion so, dass der jeweils richtige `channel` des Pixels mi
 erhält.
 */
 Canvas canvas_set_channel(Canvas c, int x, int y, ColorChannel channel, float v) {
+
+    switch (channel) {
+    case Red:
+      c = canvas_set_r(c, x, y, v);
+      break;
+    case Green:
+      c = canvas_set_g(c, x, y, v);
+      break;
+    case Blue:
+      c = canvas_set_b(c, x, y, v);
+      break;
+  }
+  
     return c;
 }
 
