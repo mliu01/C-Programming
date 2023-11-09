@@ -80,7 +80,7 @@ Canvas canvas_set_channel(Canvas c, int x, int y, ColorChannel channel, float v)
       c = canvas_set_b(c, x, y, v);
       break;
   }
-  
+
     return c;
 }
 
@@ -93,6 +93,15 @@ die Y-Achse.
 Alle nicht in den Parametern angegeben Farbkanäle sollen unverändert bleiben.
 */
 Canvas swatch_rgb(Canvas c, ColorChannel channel_x, ColorChannel channel_y) {
+    int breite = canvas_width(c);
+    int hoehe = canvas_height(c);
+
+    for (int x=0; x < breite; x++) {
+        for (int y=0; y < hoehe; y++) {
+            canvas_set_channel(c, x, y, channel_x, normalize(x, breite-1));
+            canvas_set_channel(c, x, y, channel_y, normalize(y, hoehe-1));
+        }
+    }
     return c;
 }
 
