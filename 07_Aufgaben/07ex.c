@@ -96,7 +96,7 @@ Aufgabe 2a:
 `x` zeigt auf eine Farbe. Geben Sie diese Farbe zurück.
 */
 RGB retrieve_from_pointer_struct(RGB *x) {
-    RGB color;
+    RGB color = *x;
     return color;
 }
 
@@ -105,6 +105,8 @@ Aufgabe 2b:
 `x` zeigt auf eine Farbe. Setzen Sie diese Farbe auf `Flieder` (rot 0.86, grün 0.82, blau 1.0).
 */
 void set_through_pointer_struct1(RGB *x) {
+    RGB flieder = {0.86, 0.82, 1.0};
+    *x = flieder;
     return;
 }
 
@@ -113,6 +115,7 @@ Aufgabe 2c:
 `x` zeigt auf eine Farbe. `y` _ist_ eine Farbe. Setzen Sie den Wert auf den `x` zeigt auf den Wert von `y`.
 */
 void set_through_pointer_struct2(RGB *x, RGB y) {
+    *x = y;
     return;
 }
 
@@ -122,6 +125,7 @@ Aufgabe 2d:
 Lassen Sie den Wert auf den `y` zeigt dabei unverändert.
 */
 void set_through_pointer_struct3(RGB *x, RGB *y) {
+    *x = *y;
     return;
 }
 
@@ -130,6 +134,9 @@ Aufgabe 2e:
 `x` und `y` zeigen beide auf Farben. Vertauschen Sie den Wert auf den `x` zeigt und den Wert auf den `y` zeigt.
 */
 void swap_struct(RGB *x, RGB *y) {
+    RGB tmp = *x;
+    *x = *y;
+    *y = tmp;
     return;
 }
 
@@ -139,6 +146,7 @@ Aufgabe 2f:
 Wert zeigen (d.h. die Folgen von Einsen und Nullen an den beiden Speicherpositionen sind identisch).
 */
 bool point_to_equal_values_struct(RGB *x, RGB *y) {
+    if ((*x).r == (*y).r && (*x).g == (*y).g && (*x).b == (*y).b) return true; // checken ob alle Werte gleich sind
     return false;
 }
 
@@ -148,6 +156,7 @@ Aufgabe 2g:
 Wert zeigen (d.h. die Speicherpositionen sind identisch).
 */
 bool point_to_same_values_struct(RGB *x, RGB *y) {
+    if (x == y) return true;
     return false;
 }
 
@@ -156,7 +165,7 @@ Aufgabe 3a:
 `x` zeigt auf eine Farbe. Geben Sie ihre Blaukomponente zurück.
 */
 float retrieve_from_pointer_field(RGB *x) {
-    return 0;
+    return (*x).b;
 }
 
 /*
@@ -164,6 +173,7 @@ Aufgabe 3b:
 `x` zeigt auf eine Farbe. Setzen Sie ihre Blaukomponente auf 0.
 */
 void set_through_pointer_field1(RGB *x) {
+    (*x).b = 0;
     return;
 }
 
@@ -173,6 +183,7 @@ Aufgabe 3c:
 den Wert der Blaukomponente von `y`.
 */
 void set_through_pointer_field2(RGB *x, RGB y) {
+    (*x).b = y.b;
     return;
 }
 
