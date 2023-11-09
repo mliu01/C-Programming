@@ -149,7 +149,11 @@ und den Blauwert mit 0.1140 multipliziert, und die Resultate addiert.
 Der Grauton mit dieser Helligkeit setzt alle drei Farbkanäle auf diesen Wert.
 */
 RGB rgb_to_gray(RGB color) {
-    return color;
+    float grey = color.r * 0.2989 + color.g * 0.587 + color.b * 0.1140;
+
+    RGB new_color = {grey, grey, grey};
+
+    return new_color;
 }
 
 /*
