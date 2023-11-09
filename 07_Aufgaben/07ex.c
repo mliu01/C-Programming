@@ -273,7 +273,16 @@ Aufgabe 5a:
 Geben Sie zurück, wie viele Fruchtschichten der gegebene Pfannkuchenhaufen enthält.
 */
 int32_t count_fruit_layers(PileOfPancakes p) {
-    return 0;
+    int32_t count = 0;
+
+    while (p.further_layers) { 
+        if (p.layer == Fruit) {
+            count += 1;
+        }
+        p = *(p.further_layers); // p.further_layer gibt einen Pointer aus, mit * derefernzieren und p neuen struct PileOfPancakes übergeben
+    }
+    if (p.layer == Fruit) count += 1; // loop geht nur bis zur vorletzten Layer daher extra count wenn letzte Layer aus Frucht besteht
+    return count;
 }
 
 /*
@@ -282,5 +291,12 @@ Ein Pfannkuchenhaufen ist *stabil*, wenn die erste und letzte Schicht tatsächli
 Geben Sie zurück, ob der gegebene Pfannkuchenhaufen stabil ist.
 */
 bool is_stable(PileOfPancakes p) {
-    return false;
+    if (p.layer != ActualPancake) return false; // wenn unterste Schicht kein Pancake, dann automatisch instabil
+
+    while (p.further_layers) { // solange loopen bis man zur obersten Schicht kommt
+        p = *(p.further_layers); 
+    }
+    if (p.layer != ActualPancake) return false; // wenn oberste Schicht kein Pancake, dann auch instabil
+
+    return true; // beide returns wurden nicht ausgeführt, d.h. oberste und unterste Schicht sind ActualPancake
 }
