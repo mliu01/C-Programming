@@ -166,6 +166,21 @@ Tipp: Genau so wie wir die drei Funktionen zum Färben zusammengefasst haben lie
 Funktionen in einer Hilfsfunktion zusammenfassen welche die Farbe an der gegebenen Koordinate als ein
 Wert vom Typ `RGB` zurück gibt.
 */
+RGB get_color(Canvas c, int x, int y) {
+    RGB color = {canvas_get_r(c, x, y), canvas_get_g(c, x, y), canvas_get_b(c, x, y)};
+    return color;
+}
+
 Canvas canvas_to_gray(Canvas c) {
+    int breite = canvas_width(c);
+    int hoehe = canvas_height(c);
+
+    for (int x=0; x < breite; x++) {
+        for (int y=0; y < hoehe; y++) {
+            canvas_set_rgb_struct(c, x, y, rgb_to_gray(get_color(c, x, y)));  // use get_color to get color of Pixel (x,y), set color to gray with rgb_to_gray
+                                                                              // use canvas_set_rgb_struct to give new values for red, green and blue
+        }
+    }
+
     return c;
 }
