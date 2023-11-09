@@ -135,6 +135,9 @@ Kanäle gleichzeitig ansteuern!
 Setzen Sie die Farbe des Pixels mit Koordinate `(x, y)` auf die von `color` repräsentierte Farbe.
 */
 Canvas canvas_set_rgb_struct(Canvas c, int x, int y, RGB color) {
+    c = canvas_set_r(c, x, y, color.r);
+    c = canvas_set_g(c, x, y, color.g);
+    c = canvas_set_b(c, x, y, color.b);
     return c;
 }
 
