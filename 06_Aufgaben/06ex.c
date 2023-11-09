@@ -124,7 +124,7 @@ Hinweis: Häufig werden RGB-Farben alternativ mit Ganzzahlen zwischen 0 und 255 
 Flieder wäre dann z.B. (rot 219, grün 209, blau 255).
 */
 RGB lilac() {
-    RGB color;
+    RGB color = {0.86, 0.82, 1.0}; // r, g, b
     return color;
 }
 
