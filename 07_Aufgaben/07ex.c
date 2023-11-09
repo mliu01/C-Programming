@@ -242,7 +242,14 @@ Hinweis: flabble soll als _zweites_ Argument das Ergebnis von fizzledipp erhalte
 Argument die 27. `x` und der fizzledipp von `x` sind unterschiedliche Zahlen!
 */
 int32_t frumpleflabblefizzledipp(int32_t x) {
-    return 0;
+    int32_t result;
+    int32_t x_fizzle = x; // extra variable weil fizzledip überschreibt übergebene variable
+    int32_t number = 27; // frumple braucht speicheradresse von 27
+    
+    fizzledipp(&x_fizzle); // x_fizzle wird überschrieben mit neuem Wert
+    frumple( flabble( &x, &x_fizzle ), &number , &result); // flabble nimmt nur Speicheradressen, gibt ergebnis als int32_t aus
+                                                           // frumple nimmt ein int32_t, und Speicheradressen von 27 und result, schreibt dann das Ergebnis in result
+    return result;
 }
 
 
