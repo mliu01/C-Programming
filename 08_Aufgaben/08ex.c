@@ -15,6 +15,9 @@ Aufgabe 1a:
 Lesen Sie das Headerfile `turtlecanvas.h`. Diese Funktion soll die Turtle `d` Schritte vorwärts machen lassen.
 */
 void turtle_advance_by(TurtleCanvas *c, uint32_t d) {
+    for (int i = 0; i<d; i++) {
+        turtle_advance(c);
+    }
     return;
 }
 
@@ -24,6 +27,18 @@ Füllen Sie die Turtlecanvas mit horizontalen, abwechselnd schwarzen und weißen
 schwarz gefärbt werden). Die Turtle ist anfangs an Position (0, 0), ist nach rechts orientiert, und zeichnet schwarz.
 */
 void turtle_stripes(TurtleCanvas *c) {
+    for (int i = 0; i<turtle_canvas_height(c); i++) {
+        if (i%2==0) {
+            (*c).draw_black=true;
+            turtle_advance_by(c, turtle_canvas_width(c));
+        } else {
+            turtle_rotate_left(c);
+            turtle_advance(c);
+            (*c).draw_black=false;
+            turtle_advance(c);
+            turtle_rotate_right(c);
+        }
+    }
     return;
 }
 
