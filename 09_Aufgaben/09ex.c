@@ -149,18 +149,46 @@ typedef struct PileOfPancakes_ {
 Aufgabe 2a:
 Rufen Sie `free` für alle Pointer auf, die Teil des gegebenen Pfannkuchens sind.
 */
-bool free_pancake(PileOfPancakes p) {
-    return false;
+void free_pancake_layers(PileOfPancakes *p) {
+    if (p == NULL) {
+        return;
+    }
+    free_pancake_layers((*p).further_layers);
+    free(p);
 }
 
+bool free_pancake(PileOfPancakes p) {
+    free_pancake_layers(p.further_layers);
+    return true;
+}
 /*
 Aufgabe 2b:
 Erstellen Sie einen Pfannkuchen mit `n` beliebigen Schichten (`n` ist mindestens 1).
 Hinweis: Wir nutzen Ihre free_pancake() Funktion zum freigeben des erstellten Pfannkuchens.
 */
 PileOfPancakes create_pancake(uint32_t n) {
-    PileOfPancakes p = { .layer = ActualPancake, .further_layers = NULL };
-    return p;
+    PileOfPancakes *p = malloc(sizeof(PileOfPancakes));
+    if (p == NULL) {
+        return (PileOfPancakes){ .layer = ActualPancake, .further_layers = NULL };
+    }
+
+    (*p).layer = ActualPancake;
+    (*p).further_layers = NULL;
+
+    // additional layers
+    for (int i = 1; i < n; i++) {
+        PileOfPancakes *new_layer = malloc(sizeof(PileOfPancakes));
+        if (new_layer == NULL) {
+            free_pancake(*p); 
+            return (PileOfPancakes){ .layer = ActualPancake, .further_layers = NULL };
+        }
+
+        (*new_layer).layer = ActualPancake;
+        (*new_layer).further_layers = p;
+        p = new_layer;
+    }
+
+    return *p;
 }
 
 /*
@@ -173,7 +201,8 @@ wiederverwenden kann. Wir wollen nur noch einmal Unterschiede zwischen direkter 
 Übergabe durch Pointer demonstrieren.
 */
 bool free_pancake2(PileOfPancakes *p) {
-    return false;
+    free_pancake(*p);
+    return true;
 }
 
 /*
