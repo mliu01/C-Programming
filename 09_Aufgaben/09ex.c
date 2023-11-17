@@ -169,6 +169,7 @@ Hinweis: Wir nutzen Ihre free_pancake() Funktion zum freigeben des erstellten Pf
 PileOfPancakes create_pancake(uint32_t n) {
     PileOfPancakes *p = malloc(sizeof(PileOfPancakes));
     if (p == NULL) {
+        free_pancake(*p); 
         return (PileOfPancakes){ .layer = ActualPancake, .further_layers = NULL };
     }
 
@@ -239,5 +240,10 @@ geben Sie es zurück.
 Hinweis: Wir starten bei `1`.
 */
 uint16_t *create_dynamic_array(size_t x) {
-    return NULL;
+    uint16_t *arr = malloc(x * sizeof(uint16_t));
+    for (int i = 0; i<x;  i++) {
+        uint16_t tmp = i+1; 
+        arr[i] = tmp*tmp;
+    }
+    return arr;
 }
