@@ -34,7 +34,7 @@ void turtle_stripes(TurtleCanvas *c) {
         } else {
             turtle_rotate_left(c);
             turtle_advance(c);
-            (*c).draw_black=false;
+            turtle_toggle_color(c);
             turtle_advance(c);
             turtle_rotate_right(c);
         }
