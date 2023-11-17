@@ -27,7 +27,15 @@ Geben Sie einen gültigen Pointer auf den gleichen Wert wie `x` zurück.
 Tipp: Ein Pointer direkt auf `x` ist nicht gültig. Warum?
 */
 uint32_t *return_pointer(uint32_t x) {
-    return NULL;
+    // returning a pointer to a local variable is not safe because local variables go out of scope when the function returns. 
+    // Therefore, you should avoid returning a pointer directly to a local variable.
+    // However, you can dynamically allocate memory on the heap using malloc and return a pointer to that allocated memory.
+
+    uint32_t *ptr = malloc(sizeof(uint32_t));
+
+    *ptr = x;
+
+    return ptr;
 }
 
 /*
@@ -36,7 +44,9 @@ Geben Sie den Wert zurück, auf den der Pointer `x` zeigt, und rufen Sie `free` 
 Tipp: Nach dem Aufruf von `free` darf der Pointer nicht mehr dereferenziert werden.
 */
 uint32_t free_pointer(uint32_t *x) {
-    return 0;
+    uint32_t res = *x;
+    free(x);
+    return res;
 }
 
 /*
