@@ -4,28 +4,36 @@
 #include "arrayio.h"
 
 /* Ab hier Funktion count_sort_calculate_counts implementieren */
-void count_sort_calculate_counts(int arr_in[], int len, int c_arr[]) {
-    for (int i = 0; i < MAX_VALUE; i++) {
-        c_arr[i] = 0;
+void count_sort_calculate_counts(int input_array[], int len, int count_array[]) {
+    for (int i = 0; i <= MAX_VALUE; i++) {
+        count_array[i] = 0;
     }
 
-    for (int j = 0; j < len; j++) {
-        c_arr[arr_in[j]]++;
+    for (int i = 0; i < len; i++) {
+        count_array[input_array[i]]++;
     }
 }
 
 /* Ab hier Funktion count_sort_write_output_array implementieren */
-void count_sort_write_output_array(int arr_out[], int c_arr[], SortDirection order) {
-    int k = 0;
+void count_sort_write_output_array(int output_array[], int count_array[], SortDirection order) {
+    int index = 0;
 
-    for (int j = 0; j < MAX_VALUE; j++) {
-        for (int i = 0; i < c_arr[j]; i++) {
-            if (order == ASCENDING) {
-                arr_out[k] = j;
-            } else if (order == DESCENDING) {
-                arr_out[k] = MAX_VALUE - j;
-            }
-            k++;
+    for (int i = 0; i <= MAX_VALUE; i++) {
+        while (count_array[i] > 0) {
+            output_array[index++] = i;
+            count_array[i]--;
+        }
+    }
+
+    if (order == DESCENDING) {
+        int start = 0;
+        int end = index - 1;
+        while (start < end) {
+            int temp = output_array[start];
+            output_array[start] = output_array[end];
+            output_array[end] = temp;
+            start++;
+            end--;
         }
     }
 }
@@ -42,12 +50,12 @@ SortDirection extract_order_direction(char *order) {
 }
 
 /* Ab hier Funktion count_sort implementieren und entsprechende Funktionsaufrufe einfügen */
-void count_sort(int arr_in[], int len, int arr_out[], SortDirection order) {
-    int c_arr[MAX_VALUE];
-    count_sort_calculate_counts(arr_in, len, c_arr);
-    count_sort_write_output_array(arr_out, c_arr, order);
-}
+void count_sort(int input_array[], int len, int output_array[], SortDirection order) {
+    int count_array[MAX_VALUE];
 
+    count_sort_calculate_counts(input_array, len, count_array);
+    count_sort_write_output_array(output_array, count_array, order);
+}
 
 int main(int argc, char *argv[]) {
     if (argc < 3){
@@ -61,17 +69,27 @@ int main(int argc, char *argv[]) {
     /*
      * Hier die Sortierrichtung einlesen und einer Variablen
      * des Datentypes SortDirection (siehe h-Datei) verwenden.
-     * Beenden des Programmes mit derselben Ausgabe der Hilfe (siehe Anfang main-Funktion).
-     * implementieren Sie zur Umwandlung die Funktion extract_order_direction
+     * 
+     * Beenden des Programmes mit derselben Ausgabe der Hilfe 
+     * (siehe Anfang main-Funktion)
+     * 
+     * Implementieren Sie zur Umwandlung die Funktion 
+     * extract_order_direction und verwenden Sie, wenn kein 
+     * gültiger Parameter gefunden wurde, NOTDEFINED.
+     * 
+     * Hinweis: Die extract_order_direction soll auch mit dieser
+     * SortDirection auch ein Standardverhalten implementieren, 
+     * die nicht mit einem Fehler terminiert.
+     * 
+     * Das Hauptprogramm main hingegen, darf auf unkorrekte Eingaben
+     * reagieren und auch entsprechend Ausgaben erzeugen oder mit Fehler
+     * beenden.
      */
     char *sort_direction = argv[2];
     SortDirection direction = extract_order_direction(sort_direction);
     if (direction == NOTDEFINED) {
-        printf("Ungültige Sortierrichtung: %s\n", sort_direction);
-        printf("Gülltige Sortierrichtungen sind: asc ODER desc \n");
-        return 1;
+        direction =  ASCENDING; // default ist ascending
     }
-
 
     int input_array[MAX_LAENGE];
     int len = read_array_from_file(input_array, MAX_LAENGE, filename);
